@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.ArrayList;
@@ -83,19 +84,19 @@ public class DirectedGraph<Node> implements Graph<Node> {
      * @param dest
      * @return object with edge information
      */
-    public Edge getEdge(Node src, Node dest) {
+    public Optional<Edge> getEdge(Node src, Node dest) {
         if (src == null || dest == null) {
-            return new Edge();
+            return Optional.empty();
         }
 
         readLock.lock();
         try {
             if (!outgoing.containsKey(src)) {
-                return new Edge();
+                return Optional.empty();
             }
 
             final Map<Node, Edge> neighbors = outgoing.get(src);
-            return neighbors.get(dest);
+            return Optional.of(neighbors.get(dest));
         }
         finally {
             readLock.unlock();
@@ -205,7 +206,7 @@ public class DirectedGraph<Node> implements Graph<Node> {
 
                 // For every neighbor v of u
                 for (final Node v : outgoing.get(u).keySet()) {
-                    double altDistance = distance.get(u) + getEdge(u, v).getWeight();
+                    double altDistance = distance.get(u) + getEdge(u, v).get().getWeight();
 
                     // Shorter distance found. Add to the path.
                     if (altDistance < distance.get(v)) {
