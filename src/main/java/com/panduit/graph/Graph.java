@@ -2,6 +2,7 @@ package com.panduit.graph;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -16,7 +17,7 @@ public interface Graph<Node> {
     // Query operations
     boolean containsNode(Node node);
     boolean containsEdge(Node u, Node v);
-    Edge getEdge(Node u, Node v);
+    Optional<Edge> getEdge(Node u, Node v);
     boolean isConnected(Node u, Node v);
     List<Node> findShortestPath(Node src, Node dest);
 
