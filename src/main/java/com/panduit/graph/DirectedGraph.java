@@ -421,7 +421,6 @@ public class DirectedGraph<Node> implements Graph<Node> {
                 for (Node v : vertex.getValue().keySet()) {
                     System.out.print(v + " ");
                 }
-                System.out.println();
             }
         }
         finally {
@@ -437,12 +436,17 @@ public class DirectedGraph<Node> implements Graph<Node> {
                 for (Map.Entry<Node, Edge> v : vertex.getValue().entrySet()) {
                     System.out.println(v.getValue().getLabel() + " (weight: " + v.getValue().getWeight() + ")");
                 }
-                System.out.println();
             }
         }
         finally {
             readLock.unlock();
         }
+    }
+
+    @Override
+    public String toString() {
+        return printDotFormat();
+
     }
 
     /**

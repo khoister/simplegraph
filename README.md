@@ -35,7 +35,7 @@ Otherwise, import as Maven project using your favorite IDE, e.g. IntelliJ or Ecl
   graph.addEdge(4, 6, "label7", 11);
 
   try (BufferedWriter br = new BufferedWriter(new FileWriter(new File("graph.dot")))) {
-    br.write(graph.printDotFormat());
+    br.write(graph.toString());
   }
 ```
 
