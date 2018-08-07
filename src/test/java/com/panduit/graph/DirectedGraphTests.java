@@ -50,13 +50,13 @@ public class DirectedGraphTests {
     }
 
     private void buildGraphForShortestPath() {
-        graph.addEdge(1, 2, "1 -> 2", 4);
-        graph.addEdge(1, 3, "1 -> 3", 2);
-        graph.addEdge(2, 3, "2 -> 3", 5);
-        graph.addEdge(2, 4, "2 -> 4", 10);
-        graph.addEdge(3, 5, "3 -> 5", 3);
-        graph.addEdge(5, 4, "5 -> 4", 4);
-        graph.addEdge(4, 6, "4 -> 6", 11);
+        graph.addEdge(1, 2, "label1", 4);
+        graph.addEdge(1, 3, "label2", 2);
+        graph.addEdge(2, 3, "label3", 5);
+        graph.addEdge(2, 4, "label4", 10);
+        graph.addEdge(3, 5, "label5", 3);
+        graph.addEdge(5, 4, "label6", 4);
+        graph.addEdge(4, 6, "label7", 11);
     }
 
     @BeforeMethod
@@ -317,6 +317,7 @@ public class DirectedGraphTests {
 
         // Invalid path. No such directed path from node 6 to node 1
         assertEquals(graph.findShortestPath(6, 1), ImmutableList.of());
+        System.out.println(graph.printDotFormat());
     }
 
     @Test

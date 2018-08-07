@@ -18,6 +18,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.Stack;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.text.StrBuilder;
 
 
 public class DirectedGraph<Node> implements Graph<Node> {
@@ -442,6 +443,32 @@ public class DirectedGraph<Node> implements Graph<Node> {
         finally {
             readLock.unlock();
         }
+    }
+
+    /**
+     * Gives a string in DOT format which in turn can be written to a file and viewed using GraphViz
+     * or other DOT file viewers
+     */
+    public String printDotFormat() {
+        final StrBuilder sb = new StrBuilder();
+        sb.appendln("digraph G {");
+        sb.appendln("rankdir=LR;");
+        sb.appendln("node [shape = circle];");
+        readLock.lock();
+        try {
+            for (Map.Entry<Node, Map<Node, Edge>> vertex : outgoing.entrySet()) {
+                for (Map.Entry<Node, Edge> v : vertex.getValue().entrySet()) {
+                    final String s = String.format("%s -> %s [ label = \"%s (weight = %.1f)\"];",
+                            vertex.getKey(), v.getKey(), v.getValue().getLabel(), v.getValue().getWeight());
+                    sb.appendln(s);
+                }
+            }
+        }
+        finally {
+            readLock.unlock();
+        }
+        sb.appendln("}");
+        return sb.toString();
     }
 
     /**

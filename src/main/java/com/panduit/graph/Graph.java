@@ -28,4 +28,5 @@ public interface Graph<Node> {
     // Informational
     void printNodes();
     void printEdges();
+    String printDotFormat();
 }
