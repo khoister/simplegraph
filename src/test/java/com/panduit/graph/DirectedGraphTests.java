@@ -307,6 +307,7 @@ public class DirectedGraphTests {
             assertFalse(graph.isConnected(i, 9));
             assertFalse(graph.isConnected(9, i));
         }
+        System.out.println(graph.toString());
     }
 
     @Test
@@ -317,7 +318,7 @@ public class DirectedGraphTests {
 
         // Invalid path. No such directed path from node 6 to node 1
         assertEquals(graph.findShortestPath(6, 1), ImmutableList.of());
-        System.out.println(graph.printDotFormat());
+        System.out.println(graph.toString());
     }
 
     @Test
